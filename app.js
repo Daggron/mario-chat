@@ -20,6 +20,15 @@ const io = socket(server);
 
 io.on('connection',(socket)=>{
     console.log("A new client is connected",socket.id);
+
+    socket.on('chat',(data)=>{
+        io.sockets.emit('chat',data);
+    })
+
+    socket.on('typing',(data)=>{
+        socket.broadcast.emit('typing',data);
+    })
+
 });
 
 app.get('/',(req,res)=>{
